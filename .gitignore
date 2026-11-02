@@ -1,0 +1,12 @@
+# 依赖与打包产物
+node_modules/
+dist/
+
+# 开发研究资料（含本机路径与截图，不入仓）
+_research/
+
+# 系统 / 日志杂项
+*.log
+Thumbs.db
+Desktop.ini
+.DS_Store

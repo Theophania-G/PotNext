@@ -1,0 +1,93 @@
+/* ============================================================
+   PotNext 设计令牌
+   语言来源：Mineradio / Folia 研究 —— 近黑蓝灰底 + 玻璃层
+   + 高饱和强调色 + expo-out 缓动体系
+   ============================================================ */
+:root {
+  /* 字体 */
+  --font-sans: "Noto Sans SC", "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei UI",
+               "Inter", -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Cascadia Mono", ui-monospace, monospace;
+
+  /* 底色与墨色 */
+  --bg: #08090b;
+  --paper: #0e1014;
+  --ink: #e8ecef;
+  --ink-2: #d2d7dc;
+  --muted: #8a9099;
+  --hairline: #1a1d22;
+  --hairline-2: #262a31;
+
+  /* 强调色（默认极光青） */
+  --accent: #00f5d4;
+  --accent-rgb: 0, 245, 212;
+  --accent-ink: #04231f;         /* 强调色上的文字 */
+  --danger: #ff5c72;
+  --danger-rgb: 255, 92, 114;
+  --gold: #f4d28a;
+
+  /* 玻璃体系 */
+  --glass-bg: rgba(14, 16, 20, 0.56);
+  --glass-bg-soft: rgba(255, 255, 255, 0.025);
+  --glass-bg-hover: rgba(255, 255, 255, 0.055);
+  --glass-filter: blur(22px) saturate(1.22) brightness(1.04);
+  --glass-border: rgba(var(--accent-rgb), 0.30);
+  --glass-hairline: rgba(255, 255, 255, 0.06);
+  --glass-glow-inset: inset 0 0 2px 1px rgba(255, 255, 255, 0.18),
+                      inset 0 0 10px 4px rgba(255, 255, 255, 0.07);
+  --shadow-float: 0 22px 64px rgba(0, 0, 0, 0.34),
+                  0 0 34px rgba(var(--accent-rgb), 0.05),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.18);
+
+  /* 圆角刻度 */
+  --r-pill: 999px;
+  --r-bar: 28px;
+  --r-panel: 20px;
+  --r-card: 16px;
+  --r-pop: 14px;
+  --r-btn: 11px;
+  --r-item: 10px;
+  --r-mini: 8px;
+
+  /* 缓动与动效时长 */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-press: 0.10s;
+  --t-hover: 0.20s;
+  --t-spring: 0.24s;
+  --t-bar: 0.34s;
+  --t-panel: 0.28s;
+
+  /* 布局 */
+  --titlebar-h: 44px;
+  --bar-width: min(1120px, calc(100vw - 48px));
+  --pl-width: 372px;
+}
+
+/* 强调色主题 */
+:root[data-accent="aurora"]      { --accent: #00f5d4; --accent-rgb: 0, 245, 212; --accent-ink: #04231f; }
+:root[data-accent="champagne"]   { --accent: #f4d28a; --accent-rgb: 244, 210, 138; --accent-ink: #2b2107; }
+:root[data-accent="coral"]       { --accent: #ff5c72; --accent-rgb: 255, 92, 114; --accent-ink: #2b0710; }
+:root[data-accent="sky"]         { --accent: #73a7ff; --accent-rgb: 115, 167, 255; --accent-ink: #061228; }
+
+/* 浅色主题 */
+:root[data-theme="light"] {
+  --bg: #eef0f3;
+  --paper: #f7f8fa;
+  --ink: #14171c;
+  --ink-2: #3a4149;
+  --muted: #6b7480;
+  --hairline: #e2e5ea;
+  --hairline-2: #d3d8df;
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-bg-soft: rgba(20, 24, 32, 0.03);
+  --glass-bg-hover: rgba(20, 24, 32, 0.06);
+  --glass-hairline: rgba(20, 24, 32, 0.08);
+  --glass-glow-inset: inset 0 0 2px 1px rgba(255, 255, 255, 0.6),
+                      inset 0 0 12px 4px rgba(255, 255, 255, 0.35);
+  --shadow-float: 0 22px 64px rgba(20, 30, 50, 0.16),
+                  0 0 34px rgba(var(--accent-rgb), 0.05),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}

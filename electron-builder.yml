@@ -1,0 +1,38 @@
+appId: com.potnext.player
+productName: PotNext
+copyright: Copyright © 2026 PotNext
+
+directories:
+  output: dist
+  buildResources: build
+
+files:
+  - electron/**/*
+  - src/**/*
+  - package.json
+
+asar: true
+
+win:
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch: [x64]
+
+# 注册到「打开方式」（ProgId 用命名空间名，避免和别的播放器抢通用类名）
+fileAssociations:
+  - ext: [mp4, mkv, avi, mov, webm, wmv, flv, m4v, ts, m2ts, rmvb, mpg, mpeg, 3gp, ogv, vob]
+    name: PotNext.Video
+    description: PotNext 视频文件
+
+nsis:
+  oneClick: false                        # 向导式安装，可选目录
+  perMachine: false                      # 装到用户目录，不需要管理员
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: PotNext
+  runAfterFinish: true
+  deleteAppDataOnUninstall: false        # 卸载保留播放列表/设置
+  artifactName: PotNext-Setup-${version}.exe
+  language: "2052"                       # 安装界面：简体中文

@@ -1,0 +1,102 @@
+/* 基础重置与全局排版 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+}
+button:focus-visible {
+  outline: 1px solid rgba(var(--accent-rgb), 0.4);
+  outline-offset: 2px;
+  border-radius: var(--r-mini);
+}
+
+kbd {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--glass-bg-soft);
+  border: 1px solid var(--glass-hairline);
+  color: var(--muted);
+}
+
+.ic {
+  width: 21px;
+  height: 21px;
+  display: block;
+  pointer-events: none;
+}
+
+/* 滚动条：3px 细条，强调色 thumb */
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(var(--accent-rgb), 0.22);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(var(--accent-rgb), 0.4); }
+
+/* 数字等宽（时间码） */
+.time-display, .tl-preview-time {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 应用壳体：圆角 + 玻璃 */
+.shell {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(1200px 700px at 85% -10%, rgba(var(--accent-rgb), 0.05), transparent 60%),
+    radial-gradient(900px 600px at -10% 110%, rgba(var(--accent-rgb), 0.04), transparent 55%),
+    var(--bg);
+  overflow: hidden;
+}
+
+/* 提示气泡（data-tip） */
+[data-tip] { position: relative; }
+[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 9px);
+  transform: translate(-50%, 4px);
+  padding: 5px 10px;
+  border-radius: var(--r-mini);
+  background: rgba(12, 14, 18, 0.92);
+  border: 1px solid var(--glass-hairline);
+  color: var(--ink-2);
+  font-size: 11px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s var(--ease-out) 0.35s, transform 0.16s var(--ease-out) 0.35s;
+  z-index: 300;
+}
+[data-tip]:hover::after { opacity: 1; transform: translate(-50%, 0); }
+
+/* 动效减弱：跟随系统偏好 */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01s !important;
+    transition-duration: 0.01s !important;
+  }
+}

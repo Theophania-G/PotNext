@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; media-src 'self' file:; img-src 'self' file: data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'" />
+  <title>PotNext</title>
+  <link rel="stylesheet" href="styles/tokens.css" />
+  <link rel="stylesheet" href="styles/base.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+</head>
+<body>
+  <!-- SVG 图标定义：传输键填充风格 / 功能键线性风格 -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.14v13.72c0 .77.85 1.25 1.51.85l10.79-6.86a1 1 0 0 0 0-1.7L9.51 4.29A1 1 0 0 0 8 5.14z" fill="currentColor"/></symbol>
+      <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1.4" fill="currentColor"/><rect x="14" y="4" width="4" height="16" rx="1.4" fill="currentColor"/></symbol>
+      <symbol id="i-prev" viewBox="0 0 24 24"><path d="M6 5.5a1 1 0 0 1 2 0v13a1 1 0 0 1-2 0v-13zm12.5.7v11.6c0 .78-.86 1.26-1.52.86l-8.32-5.8a1 1 0 0 1 0-1.64l8.32-5.8c.66-.46 1.52.02 1.52.8z" fill="currentColor"/></symbol>
+      <symbol id="i-next" viewBox="0 0 24 24"><path d="M18 5.5a1 1 0 0 0-2 0v13a1 1 0 0 0 2 0v-13zM5.5 6.2v11.6c0 .78.86 1.26 1.52.86l8.32-5.8a1 1 0 0 0 0-1.64l-8.32-5.8c-.66-.46-1.52.02-1.52.8z" fill="currentColor"/></symbol>
+      <symbol id="i-volume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6.5 9H3v6h3.5L11 19V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.2 6a8.5 8.5 0 0 1 0 12"/></symbol>
+      <symbol id="i-volume-low" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6.5 9H3v6h3.5L11 19V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></symbol>
+      <symbol id="i-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6.5 9H3v6h3.5L11 19V5z"/><path d="m16 9 5 6M21 9l-5 6"/></symbol>
+      <symbol id="i-fullscreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+      <symbol id="i-fullscreen-exit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></symbol>
+      <symbol id="i-playlist" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h12M4 12h12M4 18h7"/><circle cx="18" cy="16" r="3"/><path d="M21 16V8"/></symbol>
+      <symbol id="i-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+      <symbol id="i-speed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a8 8 0 1 1 8-8"/><path d="M12 12l4-3.5"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/></symbol>
+      <symbol id="i-cc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 10.2a2.6 2.6 0 1 0 0 3.6M17.5 10.2a2.6 2.6 0 1 0 0 3.6"/></symbol>
+      <symbol id="i-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.4"/></symbol>
+      <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/></symbol>
+      <symbol id="i-minimize" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14"/></symbol>
+      <symbol id="i-maximize" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="5.5" y="5.5" width="13" height="13" rx="2"/></symbol>
+      <symbol id="i-restore" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="5.5" y="8.5" width="10" height="10" rx="2"/><path d="M9 5.5h7a2 2 0 0 1 2 2v7"/></symbol>
+      <symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+      <symbol id="i-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M12 11v6M9.5 14.5 12 17l2.5-2.5"/></symbol>
+      <symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2.5h8a2 2 0 0 1 2 2V17a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></symbol>
+      <symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 6-6 6 6 6"/></symbol>
+      <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9 7V5h6v2M6.5 7l1 12h9l1-12"/><path d="M10 11v5M14 11v5"/></symbol>
+      <symbol id="i-repeat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l3 3-3 3"/><path d="M20 6H8a4 4 0 0 0-4 4v1"/><path d="M7 21l-3-3 3-3"/><path d="M4 18h12a4 4 0 0 0 4-4v-1"/></symbol>
+      <symbol id="i-repeat-one" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l3 3-3 3"/><path d="M20 6H8a4 4 0 0 0-4 4v1"/><path d="M7 21l-3-3 3-3"/><path d="M4 18h12a4 4 0 0 0 4-4v-1"/><path d="M11.2 13.2v-3l-1 .7"/><rect x="10.4" y="10.2" width="1.2" height="3" rx=".5" fill="currentColor" stroke="none"/></symbol>
+      <symbol id="i-shuffle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h4v4M20 4l-5.5 5.5M4 20l5.5-5.5M16 20h4v-4M4 4l16 16"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    </defs>
+  </svg>
+
+  <div id="app" class="shell">
+
+    <!-- 顶部仅留拖拽条；按钮全部独立浮动（不占布局高度，全屏不消失） -->
+    <div id="drag-strip"></div>
+    <nav id="win-back" class="no-drag">
+      <button class="float-btn" id="btn-back" data-tip="返回主页 (Esc)"><svg class="ic"><use href="#i-back"/></svg></button>
+    </nav>
+    <nav id="win-actions" class="no-drag">
+      <button class="float-btn" id="btn-settings" data-tip="设置"><svg class="ic"><use href="#i-settings"/></svg></button>
+      <button class="float-btn" id="btn-playlist" data-tip="播放列表 (B)"><svg class="ic"><use href="#i-playlist"/></svg></button>
+      <span class="fa-sep"></span>
+      <button class="float-btn wc" id="wc-min" data-tip="最小化"><svg class="ic"><use href="#i-minimize"/></svg></button>
+      <button class="float-btn wc" id="wc-max" data-tip="最大化"><svg class="ic"><use href="#i-maximize"/></svg></button>
+      <button class="float-btn wc wc-close" id="wc-close" data-tip="关闭"><svg class="ic"><use href="#i-close"/></svg></button>
+    </nav>
+
+    <!-- 视频舞台 -->
+    <main id="stage">
+      <video id="video" preload="metadata"></video>
+
+      <!-- 空状态 / 拖放 -->
+      <div id="empty-state">
+        <div class="empty-hero">
+          <div class="empty-orb"><svg class="ic"><use href="#i-play"/></svg></div>
+          <h1 class="empty-title">PotNext</h1>
+          <p class="empty-sub">拖入视频开始播放，或打开文件 / 文件夹</p>
+          <div class="empty-actions">
+            <button class="btn-pill primary" id="btn-open-file"><svg class="ic"><use href="#i-open"/></svg>打开文件</button>
+            <button class="btn-pill" id="btn-open-folder"><svg class="ic"><use href="#i-folder"/></svg>打开文件夹</button>
+          </div>
+          <p class="empty-hint">支持 mp4 / mkv / avi / mov / webm 等常见格式</p>
+        </div>
+        <!-- 主页纵向浏览器：逐级展开文件夹 → 视频预览行（有列表时自动铺开） -->
+        <div id="home-browser"></div>
+      </div>
+
+      <!-- 拖放遮罩 -->
+      <div id="drop-veil"><div class="drop-card"><svg class="ic"><use href="#i-open"/></svg><span>释放以添加到播放列表</span></div></div>
+
+      <!-- OSD：居中反馈 -->
+      <div id="osd"><div class="osd-card"><svg class="ic"><use href="#i-play"/></svg></div></div>
+
+      <!-- 音量 OSD -->
+      <div id="volume-osd"><div class="vosd-bar"><div class="vosd-fill"></div></div><svg class="ic"><use href="#i-volume"/></svg></div>
+
+      <!-- 画面上点击区（单击隐藏播控+列表 / 双击全屏 / 下缘热区唤出播控 / 右缘唤出列表） -->
+      <div id="stage-hit"></div>
+    </main>
+
+    <!-- 播放列表面板 -->
+    <aside id="playlist-panel">
+      <header class="pl-head">
+        <div class="pl-title-row">
+          <h2 class="pl-title">播放列表</h2>
+          <span class="pl-count" id="pl-count">0 项</span>
+        </div>
+        <div class="pl-actions">
+          <button class="mini-btn" id="pl-add-file"><svg class="ic"><use href="#i-open"/></svg>添加文件</button>
+          <button class="mini-btn" id="pl-add-folder"><svg class="ic"><use href="#i-folder"/></svg>添加文件夹</button>
+          <button class="mini-btn" id="pl-expand-all" data-tip="展开全部"><svg class="ic"><use href="#i-chevron"/></svg></button>
+          <button class="mini-btn danger" id="pl-clear"><svg class="ic"><use href="#i-trash"/></svg>清空</button>
+        </div>
+      </header>
+      <div class="pl-list" id="pl-list"></div>
+    </aside>
+
+    <!-- 底部浮动控制条 -->
+    <div id="control-bar">
+      <div class="timeline-row" id="timeline">
+        <div class="tl-track">
+          <div class="tl-buffered"></div>
+          <div class="tl-fill"></div>
+          <div class="tl-thumb"></div>
+        </div>
+        <div class="tl-preview"><span class="tl-preview-time">0:00</span></div>
+      </div>
+      <div class="bar-grid">
+        <div class="bar-left">
+          <div class="now-thumb" id="now-thumb"><svg class="ic"><use href="#i-play"/></svg></div>
+          <div class="now-text">
+            <div class="now-title" id="now-title">未在播放</div>
+            <div class="now-sub" id="now-sub">打开或拖入媒体文件</div>
+          </div>
+        </div>
+        <div class="bar-center">
+          <button class="ctrl-btn" id="btn-prev" data-tip="上一个 (P)"><svg class="ic"><use href="#i-prev"/></svg></button>
+          <button class="play-btn" id="btn-play" data-tip="播放 / 暂停 (Space)">
+            <svg class="ic play-ic"><use href="#i-play"/></svg>
+          </button>
+          <button class="ctrl-btn" id="btn-next" data-tip="下一个 (N)"><svg class="ic"><use href="#i-next"/></svg></button>
+        </div>
+        <div class="bar-right">
+          <div class="time-display"><span id="t-cur">0:00</span><span class="time-sep">/</span><span id="t-dur">0:00</span></div>
+          <div class="volume-group" id="volume-group">
+            <div class="volume-popover">
+              <div class="vol-track"><div class="vol-fill"></div><div class="vol-thumb"></div></div>
+            </div>
+            <button class="ctrl-btn" id="btn-mute" data-tip="静音 (M)"><svg class="ic"><use href="#i-volume"/></svg></button>
+          </div>
+          <div class="speed-group" id="speed-group">
+            <div class="speed-popover">
+              <button class="speed-opt" data-rate="0.5">0.5×</button>
+              <button class="speed-opt" data-rate="0.75">0.75×</button>
+              <button class="speed-opt active" data-rate="1">1.0×</button>
+              <button class="speed-opt" data-rate="1.25">1.25×</button>
+              <button class="speed-opt" data-rate="1.5">1.5×</button>
+              <button class="speed-opt" data-rate="2">2.0×</button>
+            </div>
+            <button class="ctrl-btn" id="btn-speed" data-tip="倍速 ([ / ])"><span class="speed-label">1.0×</span></button>
+          </div>
+          <button class="ctrl-btn" id="btn-more" data-tip="更多"><svg class="ic"><use href="#i-more"/></svg></button>
+          <div class="more-popover" id="more-popover">
+            <button class="more-item" id="mi-shot"><svg class="ic"><use href="#i-camera"/></svg><span>截图</span><kbd>S</kbd></button>
+            <button class="more-item" id="mi-sub"><svg class="ic"><use href="#i-cc"/></svg><span>加载字幕</span></button>
+            <button class="more-item" id="mi-frame-back"><svg class="ic"><use href="#i-prev"/></svg><span>上一帧</span><kbd>,</kbd></button>
+            <button class="more-item" id="mi-frame-fwd"><svg class="ic"><use href="#i-next"/></svg><span>下一帧</span><kbd>.</kbd></button>
+            <button class="more-item" id="mi-folder"><svg class="ic"><use href="#i-folder"/></svg><span>打开所在文件夹</span></button>
+            <button class="more-item" id="mi-home"><svg class="ic"><use href="#i-back"/></svg><span>返回主页</span><kbd>Esc</kbd></button>
+          </div>
+          <button class="ctrl-btn" id="btn-fullscreen" data-tip="全屏 (F)"><svg class="ic"><use href="#i-fullscreen"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 设置视图 -->
+    <div id="settings-view">
+      <div class="settings-shell">
+        <header class="settings-head">
+          <h2>设置</h2>
+          <button class="mini-btn" id="settings-close"><svg class="ic"><use href="#i-close"/></svg>关闭</button>
+        </header>
+        <div class="settings-body">
+          <section class="set-group">
+            <h3 class="set-group-title">外观</h3>
+            <div class="set-row">
+              <div class="set-label"><span>主题</span><small>深色 / 浅色界面</small></div>
+              <div class="seg" id="seg-theme">
+                <button data-val="dark" class="active">深色</button>
+                <button data-val="light">浅色</button>
+              </div>
+            </div>
+            <div class="set-row">
+              <div class="set-label"><span>强调色</span><small>按钮与高亮的主色</small></div>
+              <div class="swatches" id="sw-accent">
+                <button data-val="aurora" class="sw active" style="--sw:#00f5d4" data-tip="极光青"></button>
+                <button data-val="champagne" class="sw" style="--sw:#f4d28a" data-tip="香槟金"></button>
+                <button data-val="coral" class="sw" style="--sw:#ff5c72" data-tip="珊瑚红"></button>
+                <button data-val="sky" class="sw" style="--sw:#73a7ff" data-tip="天际蓝"></button>
+              </div>
+            </div>
+          </section>
+          <section class="set-group">
+            <h3 class="set-group-title">播放</h3>
+            <div class="set-row">
+              <div class="set-label"><span>自动播放下一个</span><small>当前视频结束后继续</small></div>
+              <button class="toggle active" id="tg-autonext" role="switch"><span class="knob"></span></button>
+            </div>
+            <div class="set-row">
+              <div class="set-label"><span>记住播放位置</span><small>下次打开从上次位置继续</small></div>
+              <button class="toggle active" id="tg-remember" role="switch"><span class="knob"></span></button>
+            </div>
+            <div class="set-row">
+              <div class="set-label"><span>显示字幕</span><small>自动加载同名字幕文件</small></div>
+              <button class="toggle active" id="tg-subs" role="switch"><span class="knob"></span></button>
+            </div>
+          </section>
+          <section class="set-group">
+            <h3 class="set-group-title">快捷键</h3>
+            <div class="keys-grid">
+              <div class="key-row"><span>播放 / 暂停</span><kbd>Space / K</kbd></div>
+              <div class="key-row"><span>快退 / 快进 5s</span><kbd>← / →</kbd></div>
+              <div class="key-row"><span>按住 → 2 倍速</span><kbd>按住 →</kbd></div>
+              <div class="key-row"><span>快退 / 快进 30s</span><kbd>J / L</kbd></div>
+              <div class="key-row"><span>音量</span><kbd>↑ / ↓</kbd></div>
+              <div class="key-row"><span>静音</span><kbd>M</kbd></div>
+              <div class="key-row"><span>全屏</span><kbd>F / F11</kbd></div>
+              <div class="key-row"><span>上一个 / 下一个</span><kbd>P / N</kbd></div>
+              <div class="key-row"><span>播放列表</span><kbd>B</kbd></div>
+              <div class="key-row"><span>截图</span><kbd>S</kbd></div>
+              <div class="key-row"><span>逐帧</span><kbd>, / .</kbd></div>
+              <div class="key-row"><span>倍速 / 复位</span><kbd>[ ] / \</kbd></div>
+              <div class="key-row"><span>打开文件</span><kbd>Ctrl+O</kbd></div>
+              <div class="key-row"><span>打开文件夹</span><kbd>Ctrl+Shift+O</kbd></div>
+              <div class="key-row"><span>设置</span><kbd>Ctrl+,</kbd></div>
+              <div class="key-row"><span>返回主页</span><kbd>Esc</kbd></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast-wrap"></div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
