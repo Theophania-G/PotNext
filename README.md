@@ -1,6 +1,6 @@
 # PotNext
 
-> PotPlayer 全面改版设计 —— 现代本地视频播放器（Windows / Electron）
+> 全面改版设计 —— 现代本地视频播放器（Windows / Electron）
 
 PotNext 是对经典播放器 PotPlayer 的一次彻底重设计：不再把成堆的按钮堆在主界面，而是把「找视频」和「看视频」拆成两个干净的画面——主页纵向浏览器逐级下钻挑片，播放画面只留内容和唤出式播控。
 
